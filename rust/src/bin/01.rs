@@ -1,9 +1,10 @@
 use std::str::Chars;
+use advent_of_code::aoc_helpers;
 advent_of_code::solution!(1);
 
 const ALLOWED_WORDS: [&str; 9] = ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine"];
 pub fn part_one(input: &str) -> Option<u32> {
-    let lines = input.trim().split("\n");
+    let lines = aoc_helpers::read_lines(input);
     let mut calibrations: Vec<u32> = vec![];
     for line in lines {
         let mut digits: Vec<u32> = vec![];
@@ -20,7 +21,7 @@ pub fn part_one(input: &str) -> Option<u32> {
 }
 
 pub fn part_two(input: &str) -> Option<u32> {
-    let lines = input.trim().split("\n");
+    let lines = aoc_helpers::read_lines(input);
     let mut calibrations: Vec<u32> = vec![];
     for line in lines {
         let first = find_first_digit(&line).unwrap();
