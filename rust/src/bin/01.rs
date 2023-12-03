@@ -105,8 +105,8 @@ fn handle_new_letter(current_word: &mut Vec<char>, c: char, first_digit: bool) -
     }
     if !match_found {
         let mut str_rep = &str_rep[..str_rep.len() - 1];
-        while current_word.iter().count() > 1 {
-            current_word.remove(0);
+        current_word.remove(0);
+        while current_word.len() > 1 {
             str_rep = &str_rep[..str_rep.len() - 1];
             if check_for_inclusion_in_allowed_words(str_rep, first_digit) {
                 return None
