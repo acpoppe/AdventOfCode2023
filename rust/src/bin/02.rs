@@ -4,7 +4,7 @@ use advent_of_code::aoc_helpers;
 pub fn part_one(input: &str) -> Option<u32> {
     let lines = aoc_helpers::read_lines(input);
     let mut games: Vec<Game> = vec![];
-    for (index, game) in lines.enumerate() {
+    for (index, game) in lines.into_iter().enumerate() {
         games.push(parse_game(game, (index + 1) as u32));
     }
     let mut total: u32 = 0;
@@ -19,7 +19,7 @@ pub fn part_one(input: &str) -> Option<u32> {
 pub fn part_two(input: &str) -> Option<u32> {
     let lines = aoc_helpers::read_lines(input);
     let mut games: Vec<Game> = vec![];
-    for (index, game) in lines.enumerate() {
+    for (index, game) in lines.into_iter().enumerate() {
         games.push(parse_game(game, (index + 1) as u32));
     }
     let mut total: u32 = 0;
