@@ -1,8 +1,10 @@
-use std::str::Chars;
 use advent_of_code::aoc_helpers;
+use std::str::Chars;
 advent_of_code::solution!(1);
 
-const ALLOWED_WORDS: [&str; 9] = ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine"];
+const ALLOWED_WORDS: [&str; 9] = [
+    "one", "two", "three", "four", "five", "six", "seven", "eight", "nine",
+];
 pub fn part_one(input: &str) -> Option<u32> {
     let lines = aoc_helpers::read_lines(input);
     let mut calibrations: Vec<u32> = vec![];
@@ -14,7 +16,7 @@ pub fn part_one(input: &str) -> Option<u32> {
             }
         }
         calibrations.push(
-            (digits.first().expect("No first digit") * 10) + digits.last().expect("No last digit")
+            (digits.first().expect("No first digit") * 10) + digits.last().expect("No last digit"),
         );
     }
     Some(calibrations.iter().sum())
@@ -52,7 +54,7 @@ fn find_digit(line: Chars, is_first: bool) -> Option<u32> {
                     digit = Some(val);
                     break;
                 }
-                None => ()
+                None => (),
             }
         }
     } else {
@@ -63,7 +65,7 @@ fn find_digit(line: Chars, is_first: bool) -> Option<u32> {
                     digit = Some(val);
                     break;
                 }
-                None => ()
+                None => (),
             }
         }
     }
@@ -72,13 +74,11 @@ fn find_digit(line: Chars, is_first: bool) -> Option<u32> {
 
 fn parse_char(c: char, current_word: &mut Vec<char>, is_first: bool) -> Option<u32> {
     if c.is_digit(10) {
-        return Some(c.to_digit(10).expect("Number invalid"))
+        return Some(c.to_digit(10).expect("Number invalid"));
     } else {
         match handle_new_letter(current_word, c, is_first) {
-            Some(int) => {
-                return Some(int)
-            },
-            None => ()
+            Some(int) => return Some(int),
+            None => (),
         }
     }
     None
@@ -109,15 +109,15 @@ fn handle_new_letter(current_word: &mut Vec<char>, c: char, first_digit: bool) -
         while current_word.len() > 1 {
             str_rep = &str_rep[..str_rep.len() - 1];
             if check_for_inclusion_in_allowed_words(str_rep, first_digit) {
-                return None
+                return None;
             }
         }
-        return None
+        return None;
     }
     if is_full_word {
         current_word.clear();
         current_word.push(c);
-        return Some(translate_word_to_digit(&str_rep[..]).unwrap())
+        return Some(translate_word_to_digit(&str_rep[..]).unwrap());
     }
     None
 }
@@ -131,7 +131,7 @@ fn check_for_inclusion_in_allowed_words(val: &str, first_digit: bool) -> bool {
             is_contained = word.ends_with(val);
         }
         if is_contained {
-            return true
+            return true;
         }
     }
     false
@@ -148,7 +148,7 @@ fn translate_word_to_digit(word: &str) -> Result<u32, &str> {
         "seven" => Ok(7),
         "eight" => Ok(8),
         "nine" => Ok(9),
-        _ => Err("Not translatable")
+        _ => Err("Not translatable"),
     }
 }
 
@@ -158,13 +158,17 @@ mod tests {
 
     #[test]
     fn test_part_one() {
-        let result = part_one(&advent_of_code::template::read_file_part("examples", DAY, 1));
+        let result = part_one(&advent_of_code::template::read_file_part(
+            "examples", DAY, 1,
+        ));
         assert_eq!(result, Some(142));
     }
 
     #[test]
     fn test_part_two() {
-        let result = part_two(&advent_of_code::template::read_file_part("examples", DAY, 2));
+        let result = part_two(&advent_of_code::template::read_file_part(
+            "examples", DAY, 2,
+        ));
         assert_eq!(result, Some(281));
     }
 }

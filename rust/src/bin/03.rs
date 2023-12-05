@@ -24,7 +24,7 @@ pub fn part_two(_input: &str) -> Option<u32> {
         .enumerate()
         .map(|(i, l)| parse_line(&l, i, &lines).1)
         .collect::<Vec<HashMap<String, Vec<u32>>>>();
-    
+
     let mut gears: HashMap<String, Vec<u32>> = HashMap::new();
     for map in gear_maps {
         for (gear, values) in map {
@@ -37,31 +37,32 @@ pub fn part_two(_input: &str) -> Option<u32> {
     }
     let total: u32 = gears
         .iter()
-        .map(|(_, v)| {
-            if v.len() == 2 {
-                v[0] * v[1]
-            } else {
-                0
-            }
-        })
+        .map(|(_, v)| if v.len() == 2 { v[0] * v[1] } else { 0 })
         .sum();
     Some(total)
 }
 
-fn parse_line(line: &Vec<char>, row_index: usize, chart: &Vec<Vec<char>>) -> (Vec<u32>, HashMap<String, Vec<u32>>) {
+fn parse_line(
+    line: &Vec<char>,
+    row_index: usize,
+    chart: &Vec<Vec<char>>,
+) -> (Vec<u32>, HashMap<String, Vec<u32>>) {
     let mut ret: Vec<u32> = vec![];
     let mut ret_gears: HashMap<String, Vec<u32>> = HashMap::new();
     let mut current_number: Vec<u32> = vec![];
     let mut is_adjacent = false;
     let mut adjacent_gears: HashMap<String, bool> = HashMap::new();
-    
+
     for (col_index, char) in line.iter().enumerate() {
         if !char.is_digit(10) {
             if current_number.len() > 0 && is_adjacent {
                 ret.push(parse_number(&current_number));
                 for (gear, _) in &adjacent_gears {
                     if ret_gears.contains_key(gear) {
-                        ret_gears.get_mut(gear).unwrap().push(parse_number(&current_number));
+                        ret_gears
+                            .get_mut(gear)
+                            .unwrap()
+                            .push(parse_number(&current_number));
                     } else {
                         ret_gears.insert(gear.clone(), vec![parse_number(&current_number)]);
                     }
@@ -87,7 +88,10 @@ fn parse_line(line: &Vec<char>, row_index: usize, chart: &Vec<Vec<char>>) -> (Ve
         ret.push(parse_number(&current_number));
         for (gear, _) in &adjacent_gears {
             if ret_gears.contains_key(gear) {
-                ret_gears.get_mut(gear).unwrap().push(parse_number(&current_number));
+                ret_gears
+                    .get_mut(gear)
+                    .unwrap()
+                    .push(parse_number(&current_number));
             } else {
                 ret_gears.insert(gear.clone(), vec![parse_number(&current_number)]);
             }
@@ -98,7 +102,11 @@ fn parse_line(line: &Vec<char>, row_index: usize, chart: &Vec<Vec<char>>) -> (Ve
     (ret, ret_gears)
 }
 
-fn check_for_adjacent_gear(row: usize, col: usize, chart: &Vec<Vec<char>>) -> HashMap<String, bool> {
+fn check_for_adjacent_gear(
+    row: usize,
+    col: usize,
+    chart: &Vec<Vec<char>>,
+) -> HashMap<String, bool> {
     let mut found_gears: HashMap<String, bool> = HashMap::new();
     if row > 0 {
         if col > 0 {
@@ -171,10 +179,12 @@ fn check_for_adjacent_special_character(row: usize, col: usize, chart: &Vec<Vec<
         is_special = is_special_char_at(row + 1, col, chart) || is_special;
     }
     if col > 0 {
-        is_special = (is_special_char_at(row, col - 1, chart) && !chart[row][col - 1].is_digit(10)) || is_special;
+        is_special = (is_special_char_at(row, col - 1, chart) && !chart[row][col - 1].is_digit(10))
+            || is_special;
     }
     if col < chart[row].len() - 1 {
-        is_special = (is_special_char_at(row, col + 1, chart) && !chart[row][col + 1].is_digit(10)) || is_special;
+        is_special = (is_special_char_at(row, col + 1, chart) && !chart[row][col + 1].is_digit(10))
+            || is_special;
     }
     is_special
 }

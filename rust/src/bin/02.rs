@@ -39,10 +39,7 @@ fn parse_game(from: &str, i: u32) -> Game {
         let cubes = parse_pull(pull);
         pulls.push(cubes);
     }
-    Game {
-        index: i,
-        pulls
-    }
+    Game { index: i, pulls }
 }
 
 fn parse_pull(from: &str) -> Pull {
@@ -52,15 +49,27 @@ fn parse_pull(from: &str) -> Pull {
     let mut green_count: u32 = 0;
     for color in colors {
         match parse_cube_color(color) {
-            CubeColor::Blue => blue_count = color.split(" ").collect::<Vec<&str>>()[0].parse().expect("Blue color not found"),
-            CubeColor::Red => red_count = color.split(" ").collect::<Vec<&str>>()[0].parse().expect("Red color not found"),
-            CubeColor::Green => green_count = color.split(" ").collect::<Vec<&str>>()[0].parse().expect("Green color not found")
+            CubeColor::Blue => {
+                blue_count = color.split(" ").collect::<Vec<&str>>()[0]
+                    .parse()
+                    .expect("Blue color not found")
+            }
+            CubeColor::Red => {
+                red_count = color.split(" ").collect::<Vec<&str>>()[0]
+                    .parse()
+                    .expect("Red color not found")
+            }
+            CubeColor::Green => {
+                green_count = color.split(" ").collect::<Vec<&str>>()[0]
+                    .parse()
+                    .expect("Green color not found")
+            }
         }
     }
     Pull {
         red_count,
         green_count,
-        blue_count
+        blue_count,
     }
 }
 
@@ -77,13 +86,13 @@ fn parse_cube_color(from: &str) -> CubeColor {
 struct Pull {
     red_count: u32,
     green_count: u32,
-    blue_count: u32
+    blue_count: u32,
 }
 
 #[derive(Debug)]
 struct Game {
     index: u32,
-    pulls: Vec<Pull>
+    pulls: Vec<Pull>,
 }
 
 impl Game {
