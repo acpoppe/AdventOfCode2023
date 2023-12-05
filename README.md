@@ -10,4 +10,5 @@ I don't have any specific objective with these, so projects may be in whatever l
 | --- | ------------------------------- | ----------------------------------------------------------------------------------------------------- | ----------- |
 | 1   | Day 1: Trebuchet?!         		| [Day 1](https://adventofcode.com/2023/day/1) - [Part 2](https://adventofcode.com/2023/day/1#part2)    | rust        |
 | 2   | Day 2: Cube Conundrum				| [Day 2](https://adventofcode.com/2023/day/2) - [Part 2](https://adventofcode.com/2023/day/2#part2)    | rust        |
-| 3   | Day 3: Gear Ratios					| [Day 3](https://adventofcode.com/2023/day/2) - [Part 2](https://adventofcode.com/2023/day/2#part2)    | rust        |
+| 3   | Day 3: Gear Ratios					| [Day 3](https://adventofcode.com/2023/day/3) - [Part 2](https://adventofcode.com/2023/day/3#part2)    | rust        |
+| 4   | Day 4: Scratchcards				| [Day 4](https://adventofcode.com/2023/day/4) - [Part 2](https://adventofcode.com/2023/day/4#part2)    | rust        |
