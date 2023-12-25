@@ -16,3 +16,4 @@ I don't have any specific objective with these, so projects may be in whatever l
 | 6   | Day 6: Wait For It					       | [Day 6](https://adventofcode.com/2023/day/6) - [Part 2](https://adventofcode.com/2023/day/6#part2)    | rust        |
 | 7   | Day 7: Camel Cards					       | [Day 7](https://adventofcode.com/2023/day/7) - [Part 2](https://adventofcode.com/2023/day/7#part2)    | rust        |
 | 8   | Day 8: Haunted Wasteland			       | [Day 8](https://adventofcode.com/2023/day/8) - [Part 2](https://adventofcode.com/2023/day/8#part2)    | rust        |
+| 9   | Day 9: Mirage Maintenance			       | [Day 9](https://adventofcode.com/2023/day/9) - [Part 2](https://adventofcode.com/2023/day/9#part2)    | rust        |
