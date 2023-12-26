@@ -62,7 +62,11 @@ fn find_start(map: &Vec<Vec<char>>) -> (u64, u64) {
     panic!("No start found");
 }
 
-fn remove_extra_from_map(paths: Vec<Vec<(u64, u64)>>, map: &Vec<Vec<char>>, start_char: char) -> Vec<Vec<char>> {
+fn remove_extra_from_map(
+    paths: Vec<Vec<(u64, u64)>>,
+    map: &Vec<Vec<char>>,
+    start_char: char,
+) -> Vec<Vec<char>> {
     let mut new_map: Vec<Vec<char>> = vec![];
     for y in 0..map.len() {
         new_map.push(vec![]);
@@ -91,7 +95,7 @@ fn paths_contains_point(paths: &Vec<Vec<(u64, u64)>>, x: u64, y: u64) -> bool {
     false
 }
 
-fn find_furthest_from(x: u64, y: u64, map: &Vec<Vec<char>>) -> (u64, Vec<Vec<(u64, u64)>>){
+fn find_furthest_from(x: u64, y: u64, map: &Vec<Vec<char>>) -> (u64, Vec<Vec<(u64, u64)>>) {
     let mut step_count = 1;
     let mut paths = find_paths(x, y, map).0;
 
@@ -123,45 +127,45 @@ fn step(path: &mut Vec<(u64, u64)>, map: &Vec<Vec<char>>) {
         '7' => {
             if last_step.0 - 1 == prev_step.0 && last_step.1 == prev_step.1 {
                 path.push((last_step.0, last_step.1 + 1));
-                return
+                return;
             }
             path.push((last_step.0 - 1, last_step.1))
-        },
+        }
         'J' => {
             if last_step.0 - 1 == prev_step.0 && last_step.1 == prev_step.1 {
                 path.push((last_step.0, last_step.1 - 1));
-                return
+                return;
             }
             path.push((last_step.0 - 1, last_step.1))
-        },
+        }
         'F' => {
             if last_step.0 == prev_step.0 && last_step.1 + 1 == prev_step.1 {
                 path.push((last_step.0 + 1, last_step.1));
-                return
+                return;
             }
             path.push((last_step.0, last_step.1 + 1))
-        },
+        }
         'L' => {
             if last_step.0 == prev_step.0 && last_step.1 - 1 == prev_step.1 {
                 path.push((last_step.0 + 1, last_step.1));
-                return
+                return;
             }
             path.push((last_step.0, last_step.1 - 1))
-        },
+        }
         '-' => {
             if last_step.0 + 1 == prev_step.0 && last_step.1 == prev_step.1 {
                 path.push((last_step.0 - 1, last_step.1));
-                return
+                return;
             }
             path.push((last_step.0 + 1, last_step.1))
-        },
+        }
         '|' => {
             if last_step.0 == prev_step.0 && last_step.1 + 1 == prev_step.1 {
                 path.push((last_step.0, last_step.1 - 1));
-                return
+                return;
             }
             path.push((last_step.0, last_step.1 + 1))
-        },
+        }
         _ => panic!("Invalid step"),
     }
 }
@@ -210,13 +214,21 @@ fn find_paths(x: u64, y: u64, map: &Vec<Vec<char>>) -> (Vec<Vec<(u64, u64)>>, ch
         is_east = true;
     }
 
-    let start_char = if is_north && is_south { '|' }
-    else if is_east && is_west { '-' }
-    else if is_north && is_east { 'L' }
-    else if is_north && is_west { 'J' }
-    else if is_south && is_east { 'F' }
-    else if is_south && is_west { '7' }
-    else { panic!("Invalid start") };
+    let start_char = if is_north && is_south {
+        '|'
+    } else if is_east && is_west {
+        '-'
+    } else if is_north && is_east {
+        'L'
+    } else if is_north && is_west {
+        'J'
+    } else if is_south && is_east {
+        'F'
+    } else if is_south && is_west {
+        '7'
+    } else {
+        panic!("Invalid start")
+    };
 
     (paths, start_char)
 }
@@ -227,13 +239,17 @@ mod tests {
 
     #[test]
     fn test_part_one() {
-        let result = part_one(&advent_of_code::template::read_file_part("examples", DAY, 1));
+        let result = part_one(&advent_of_code::template::read_file_part(
+            "examples", DAY, 1,
+        ));
         assert_eq!(result, Some(8));
     }
 
     #[test]
     fn test_part_two() {
-        let result = part_two(&advent_of_code::template::read_file_part("examples", DAY, 2));
+        let result = part_two(&advent_of_code::template::read_file_part(
+            "examples", DAY, 2,
+        ));
         assert_eq!(result, Some(10));
     }
 }

@@ -5,7 +5,13 @@ advent_of_code::solution!(9);
 pub fn part_one(input: &str) -> Option<i64> {
     let numbers = aoc_helpers::read_lines(input)
         .into_iter()
-        .map(|line| line.split_whitespace().collect::<Vec<&str>>().into_iter().map(|s| s.parse::<i64>().unwrap()).collect::<Vec<i64>>())
+        .map(|line| {
+            line.split_whitespace()
+                .collect::<Vec<&str>>()
+                .into_iter()
+                .map(|s| s.parse::<i64>().unwrap())
+                .collect::<Vec<i64>>()
+        })
         .collect::<Vec<Vec<i64>>>()
         .into_iter()
         .map(|h| predict_val(&h, false))
@@ -17,7 +23,13 @@ pub fn part_one(input: &str) -> Option<i64> {
 pub fn part_two(input: &str) -> Option<i64> {
     let numbers = aoc_helpers::read_lines(input)
         .into_iter()
-        .map(|line| line.split_whitespace().collect::<Vec<&str>>().into_iter().map(|s| s.parse::<i64>().unwrap()).collect::<Vec<i64>>())
+        .map(|line| {
+            line.split_whitespace()
+                .collect::<Vec<&str>>()
+                .into_iter()
+                .map(|s| s.parse::<i64>().unwrap())
+                .collect::<Vec<i64>>()
+        })
         .collect::<Vec<Vec<i64>>>()
         .into_iter()
         .map(|h| predict_val(&h, true))

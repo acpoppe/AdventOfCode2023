@@ -5,40 +5,26 @@ advent_of_code::solution!(7);
 
 pub fn part_one(input: &str) -> Option<u64> {
     let lines = aoc_helpers::read_lines(input);
-    let mut hands = lines
-        .iter()
-        .map(|line| Hand::new(line))
-        .collect_vec();
+    let mut hands = lines.iter().map(|line| Hand::new(line)).collect_vec();
 
     hands.sort();
     hands.reverse();
 
-    Some(hands
-         .iter()
-         .enumerate()
-         .fold(0, |acc, (index, hand)| {
-            acc + hand.bid * ((index as u64) + 1)
-        })
-    )
+    Some(hands.iter().enumerate().fold(0, |acc, (index, hand)| {
+        acc + hand.bid * ((index as u64) + 1)
+    }))
 }
 
 pub fn part_two(input: &str) -> Option<u64> {
     let lines = aoc_helpers::read_lines(input);
-    let mut hands = lines
-        .iter()
-        .map(|line| HandPt2::new(line))
-        .collect_vec();
+    let mut hands = lines.iter().map(|line| HandPt2::new(line)).collect_vec();
 
     hands.sort();
     hands.reverse();
 
-    Some(hands
-         .iter()
-         .enumerate()
-         .fold(0, |acc, (index, hand)| {
-            acc + hand.bid * ((index as u64) + 1)
-        })
-    )
+    Some(hands.iter().enumerate().fold(0, |acc, (index, hand)| {
+        acc + hand.bid * ((index as u64) + 1)
+    }))
 }
 
 #[derive(PartialEq, Eq, Debug)]
@@ -91,7 +77,10 @@ impl HandPt2 {
     fn new(line: &str) -> HandPt2 {
         let parts: Vec<&str> = line.split_whitespace().collect();
         HandPt2 {
-            cards: parts[0].chars().map(|c| CardPt2::parse_card(c)).collect_vec(),
+            cards: parts[0]
+                .chars()
+                .map(|c| CardPt2::parse_card(c))
+                .collect_vec(),
             bid: parts[1].parse::<u64>().unwrap(),
             hand_type: HandType::parse_hand_pt_2(&parts[0].chars().collect()),
         }

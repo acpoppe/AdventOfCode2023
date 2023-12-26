@@ -6,8 +6,8 @@ advent_of_code::solution!(6);
 pub fn part_one(input: &str) -> Option<u64> {
     let lines = aoc_helpers::read_lines(input);
     let times = lines[0]
-        .split_once(": ").
-        unwrap()
+        .split_once(": ")
+        .unwrap()
         .1
         .trim()
         .split_whitespace()
@@ -15,8 +15,8 @@ pub fn part_one(input: &str) -> Option<u64> {
         .collect_vec();
 
     let records = lines[1]
-        .split_once(": ").
-        unwrap()
+        .split_once(": ")
+        .unwrap()
         .1
         .trim()
         .split_whitespace()
@@ -46,8 +46,8 @@ pub fn part_one(input: &str) -> Option<u64> {
 pub fn part_two(input: &str) -> Option<u64> {
     let lines = aoc_helpers::read_lines(input);
     let time = lines[0]
-        .split_once(": ").
-        unwrap()
+        .split_once(": ")
+        .unwrap()
         .1
         .trim()
         .split_whitespace()
@@ -58,8 +58,8 @@ pub fn part_two(input: &str) -> Option<u64> {
         .parse::<u64>();
 
     let record = lines[1]
-        .split_once(": ").
-        unwrap()
+        .split_once(": ")
+        .unwrap()
         .1
         .trim()
         .split_whitespace()

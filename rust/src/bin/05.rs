@@ -1,5 +1,8 @@
-use std::{collections::HashMap, cmp::{min, max}};
 use itertools::Itertools;
+use std::{
+    cmp::{max, min},
+    collections::HashMap,
+};
 
 use advent_of_code::aoc_helpers;
 advent_of_code::solution!(5);
@@ -19,12 +22,15 @@ pub fn part_one(input: &str) -> Option<u64> {
         .map(|s| s.parse::<u64>().unwrap())
         .collect();
 
-    let maps: HashMap<AlmanacKey, Map> = maps
-        .iter()
-        .map(|s| parse_map(s))
-        .collect();
+    let maps: HashMap<AlmanacKey, Map> = maps.iter().map(|s| parse_map(s)).collect();
 
-    Some(convert_seeds_to_locations(seeds, &maps).iter().min().unwrap().clone())
+    Some(
+        convert_seeds_to_locations(seeds, &maps)
+            .iter()
+            .min()
+            .unwrap()
+            .clone(),
+    )
 }
 
 pub fn part_two(_input: &str) -> Option<u64> {
@@ -40,25 +46,21 @@ pub fn part_two(_input: &str) -> Option<u64> {
         .collect::<Vec<&str>>()
         .chunks(2)
         .into_iter()
-        .map(|c| {
-            SeedRange {
-                min: c[0].parse::<u64>().unwrap(),
-                length: c[1].parse::<u64>().unwrap(),
-            }
+        .map(|c| SeedRange {
+            min: c[0].parse::<u64>().unwrap(),
+            length: c[1].parse::<u64>().unwrap(),
         })
         .collect();
 
-    let mapped_ranges = maps
-        .iter()
-        .fold(ranges, |ranges, map| {
-            ranges
-                .iter()
-                .flat_map(|seed_range| map.convert_ranges_to_locations(seed_range))
-                .filter(|r| r.length > 0)
-                .sorted()
-                .collect_vec()
-                .merge_ranges()
-        });
+    let mapped_ranges = maps.iter().fold(ranges, |ranges, map| {
+        ranges
+            .iter()
+            .flat_map(|seed_range| map.convert_ranges_to_locations(seed_range))
+            .filter(|r| r.length > 0)
+            .sorted()
+            .collect_vec()
+            .merge_ranges()
+    });
 
     Some(mapped_ranges.iter().map(|r| r.min).min().unwrap().clone())
 }
@@ -126,7 +128,10 @@ impl Convertable for Vec<Conversion> {
 }
 
 fn convert_seeds_to_locations(seeds: Vec<u64>, maps: &HashMap<AlmanacKey, Map>) -> Vec<u64> {
-    seeds.iter().map(|s| convert_seed_to_location(*s, maps)).collect()
+    seeds
+        .iter()
+        .map(|s| convert_seed_to_location(*s, maps))
+        .collect()
 }
 
 fn convert_seed_to_location(seed: u64, maps: &HashMap<AlmanacKey, Map>) -> u64 {
@@ -135,7 +140,8 @@ fn convert_seed_to_location(seed: u64, maps: &HashMap<AlmanacKey, Map>) -> u64 {
     let val = convert_seed(val, maps.get(&AlmanacKey::FertilizerToWater).unwrap()).unwrap_or(val);
     let val = convert_seed(val, maps.get(&AlmanacKey::WaterToLight).unwrap()).unwrap_or(val);
     let val = convert_seed(val, maps.get(&AlmanacKey::LightToTemperature).unwrap()).unwrap_or(val);
-    let val = convert_seed(val, maps.get(&AlmanacKey::TemperatureToHumidity).unwrap()).unwrap_or(val);
+    let val =
+        convert_seed(val, maps.get(&AlmanacKey::TemperatureToHumidity).unwrap()).unwrap_or(val);
     let val = convert_seed(val, maps.get(&AlmanacKey::HumidityToLocation).unwrap()).unwrap_or(val);
     val
 }
@@ -168,24 +174,24 @@ fn parse_map(input: &str) -> (AlmanacKey, Map) {
 
     let conversions: Vec<Conversion> = lines[1..].iter().map(|s| parse_conversion(s)).collect();
 
-    (
-        key,
-        Map {
-            conversions,
-        }
-    )
+    (key, Map { conversions })
 }
 
 fn parse_map_pt2(input: &str) -> Map {
     let lines: Vec<&str> = input.split("\n").collect();
-    let conversions: Vec<Conversion> = lines[1..].iter().map(|s| parse_conversion(s)).sorted().collect();
-    Map {
-        conversions,
-    }
+    let conversions: Vec<Conversion> = lines[1..]
+        .iter()
+        .map(|s| parse_conversion(s))
+        .sorted()
+        .collect();
+    Map { conversions }
 }
 
 fn parse_conversion(input: &str) -> Conversion {
-    let parts: Vec<u64> = input.split_whitespace().map(|p| p.trim().parse::<u64>().unwrap()).collect();
+    let parts: Vec<u64> = input
+        .split_whitespace()
+        .map(|p| p.trim().parse::<u64>().unwrap())
+        .collect();
     Conversion {
         source_start: parts[1],
         source_end: parts[1] + parts[2],
@@ -216,7 +222,10 @@ impl MergeRanges for Vec<SeedRange> {
         let mut current_range = self[0].clone();
         self.iter().for_each(|range| {
             if current_range.includes(range.min) {
-                current_range.length = max(current_range.length, range.length + range.min - current_range.min);
+                current_range.length = max(
+                    current_range.length,
+                    range.length + range.min - current_range.min,
+                );
             } else if range.min == current_range.min + current_range.length {
                 current_range.length += range.length;
             } else {

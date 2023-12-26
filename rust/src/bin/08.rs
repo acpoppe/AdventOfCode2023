@@ -1,5 +1,5 @@
-use std::collections::HashMap;
 use futures::future::join_all;
+use std::collections::HashMap;
 
 advent_of_code::solution!(8);
 
@@ -26,7 +26,9 @@ pub fn part_one(input: &str) -> Option<u64> {
             current = nodes.get_right(current).unwrap();
             count += 1;
         }
-        if current == "ZZZ" { break; }
+        if current == "ZZZ" {
+            break;
+        }
     }
     Some(count)
 }
@@ -52,7 +54,7 @@ pub async fn part_two(input: &str) -> Option<u64> {
     }
 
     let mut counts = vec![];
-    for start in starts { 
+    for start in starts {
         counts.push(find_loop_count(steps.clone(), start, &nodes));
     }
     let counts = join_all(counts).await;
@@ -71,7 +73,9 @@ async fn find_loop_count(steps: Vec<char>, start: String, nodes: &Nodes) -> u64 
             current = nodes.get_right(current).unwrap();
             count += 1;
         }
-        if current.ends_with("Z") { break; }
+        if current.ends_with("Z") {
+            break;
+        }
     }
     count
 }
@@ -79,14 +83,20 @@ async fn find_loop_count(steps: Vec<char>, start: String, nodes: &Nodes) -> u64 
 fn parse_line(line: &str) -> (String, String, String) {
     let parts = line.split(" = ").collect::<Vec<&str>>();
     let name = parts[0].to_string();
-    let dests = parts[1].split_at(parts[1].len() - 1).0.split_at(1).1.split_once(", ").unwrap();
-    
+    let dests = parts[1]
+        .split_at(parts[1].len() - 1)
+        .0
+        .split_at(1)
+        .1
+        .split_once(", ")
+        .unwrap();
+
     (name, dests.0.to_string(), dests.1.to_string())
 }
 
 fn lcm(numbers: Vec<u64>) -> u64 {
     let mut temp = numbers.clone();
-    
+
     loop {
         let mut same = true;
 
@@ -101,11 +111,16 @@ fn lcm(numbers: Vec<u64>) -> u64 {
             return temp[0];
         }
 
-        match temp.iter().enumerate().min_by(|(_, a), (_, b)| a.cmp(b)).map(|(index, _)| index) {
+        match temp
+            .iter()
+            .enumerate()
+            .min_by(|(_, a), (_, b)| a.cmp(b))
+            .map(|(index, _)| index)
+        {
             Some(idx) => {
                 temp[idx] = temp[idx] + numbers[idx];
-            },
-            None => panic!("Not possible")
+            }
+            None => panic!("Not possible"),
         }
     }
 }
@@ -135,13 +150,17 @@ mod tests {
 
     #[test]
     fn test_part_one() {
-        let result = part_one(&advent_of_code::template::read_file_part("examples", DAY, 1));
+        let result = part_one(&advent_of_code::template::read_file_part(
+            "examples", DAY, 1,
+        ));
         assert_eq!(result, Some(6));
     }
 
     #[test]
     fn test_part_two() {
-        let result = part_two(&advent_of_code::template::read_file_part("examples", DAY, 2));
+        let result = part_two(&advent_of_code::template::read_file_part(
+            "examples", DAY, 2,
+        ));
         assert_eq!(result, Some(6));
     }
 }
