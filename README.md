@@ -19,3 +19,4 @@ I don't have any specific objective with these, so projects may be in whatever l
 | 9   | Day 9: Mirage Maintenance			       | [Day 9](https://adventofcode.com/2023/day/9) - [Part 2](https://adventofcode.com/2023/day/9#part2)    | rust        |
 | 10  | Day 10: Pipe Maze					       | [Day 10](https://adventofcode.com/2023/day/10) - [Part 2](https://adventofcode.com/2023/day/10#part2) | rust        |
 | 11  | Day 11: Cosmic Expansion			       | [Day 11](https://adventofcode.com/2023/day/11) - [Part 2](https://adventofcode.com/2023/day/11#part2) | rust        |
+| 12  | Day 12: Hot Springs			 	       | [Day 12](https://adventofcode.com/2023/day/12) - [Part 2](https://adventofcode.com/2023/day/12#part2) | rust        |
